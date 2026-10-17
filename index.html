@@ -233,6 +233,23 @@
     text-align:right;font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--rose-soft);margin-top:28px;
   }
 
+  #nota{padding:10px 20px 60px;}
+  .note-card{
+    position:relative;max-width:540px;margin:0 auto;
+    background:linear-gradient(160deg,#fff7fb,#ffe1ee);
+    color:#5a1f3d;padding:44px 38px 40px;border-radius:18px;
+    font-family:'Dancing Script',cursive;font-size:1.55rem;line-height:1.5;
+    text-align:center;transform:rotate(-1.6deg);
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+    border:1px solid rgba(255,255,255,.5);
+  }
+  .note-card::before{
+    content:'';position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(-2deg);
+    width:120px;height:32px;background:rgba(255,143,183,.55);border-radius:4px;
+    box-shadow:0 6px 14px rgba(0,0,0,.2);
+  }
+  .note-card p{margin:0;}
+
   footer{
     text-align:center;padding:70px 20px 60px;color:rgba(255,255,255,.6);font-weight:300;font-size:.9rem;
   }
@@ -253,6 +270,7 @@
   @media(max-width:560px){
     .letter-card{padding:40px 26px;}
     .compliment{padding:38px 22px;}
+    .note-card{font-size:1.3rem;padding:38px 24px 34px;}
     #musicBtn{width:48px;height:48px;font-size:19px;}
   }
 </style>
@@ -307,6 +325,13 @@
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             title="Playlist de Luján en Spotify"></iframe>
         </div>
+      </div>
+    </section>
+
+    <!-- NOTA -->
+    <section id="nota" class="reveal">
+      <div class="note-card">
+        <p>Es que soy un tonto ciertas veces... pero sería tonto no decirte todo lo linda que eres. 🩷</p>
       </div>
     </section>
 
