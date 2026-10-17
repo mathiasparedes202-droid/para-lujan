@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Para Luján Suárez 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#ff6fa5;
+    --rose-soft:#ffb3d1;
+    --plum:#2a0f2e;
+    --plum-2:#43143f;
+    --gold:#ffd6a5;
+    --ink:#3a1030;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins',system-ui,Segoe UI,sans-serif;
+    color:#fff;
+    background:var(--plum);
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+
+  /* Fondo animado */
+  .bg{
+    position:fixed;inset:0;z-index:-3;
+    background:linear-gradient(135deg,#2a0f2e,#43143f,#7a1f52,#2a0f2e);
+    background-size:400% 400%;
+    animation:gradientMove 18s ease infinite;
+  }
+  @keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .glow{
+    position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(600px 400px at 15% 20%, rgba(255,111,165,.35), transparent 60%),
+      radial-gradient(700px 500px at 85% 75%, rgba(255,182,213,.28), transparent 60%),
+      radial-gradient(500px 500px at 50% 100%, rgba(255,214,165,.18), transparent 60%);
+  }
+  #hearts{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+
+  /* Botón de música */
+  #musicBtn{
+    position:fixed;top:18px;right:18px;z-index:20;
+    width:54px;height:54px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+    color:#fff;font-size:22px;cursor:pointer;
+    transition:transform .25s ease, background .25s ease;
+    box-shadow:0 8px 24px rgba(255,111,165,.35);
+  }
+  #musicBtn:hover{transform:scale(1.1) rotate(-6deg);background:rgba(255,255,255,.22);}
+  #musicBtn.playing{animation:pulse 1.4s ease-in-out infinite;}
+  @keyframes pulse{50%{box-shadow:0 0 0 12px rgba(255,111,165,0);}}
+
+  main{max-width:1000px;margin:0 auto;padding:0 22px;}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:60px 0;
+  }
+  .eyebrow{
+    letter-spacing:4px;text-transform:uppercase;font-size:.75rem;
+    color:var(--rose-soft);font-weight:300;margin-bottom:22px;
+    opacity:0;animation:fadeUp 1s ease .2s forwards;
+  }
+  .name{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(3.2rem,11vw,7rem);
+    line-height:1.05;
+    background:linear-gradient(120deg,#fff,#ffb3d1,#ff6fa5,#ffd6a5,#fff);
+    background-size:300% 300%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shine 6s ease infinite, fadeUp 1.2s ease .4s both;
+    filter:drop-shadow(0 8px 30px rgba(255,111,165,.5));
+    padding:0 .1em;
+  }
+  @keyframes shine{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+  .tagline{
+    margin-top:26px;font-size:clamp(1rem,2.6vw,1.35rem);
+    color:#ffe4ef;font-weight:300;min-height:3.2em;max-width:620px;
+    line-height:1.6;
+  }
+  .tagline .caret{color:var(--rose);font-weight:600;animation:blink .9s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .heart-big{
+    margin-top:36px;font-size:52px;cursor:pointer;
+    animation:beat 1.3s ease-in-out infinite;
+    filter:drop-shadow(0 0 22px rgba(255,111,165,.8));
+    transition:transform .2s ease;
+    user-select:none;
+  }
+  .heart-big:active{transform:scale(.85);}
+  @keyframes beat{0%,100%{transform:scale(1);}25%{transform:scale(1.18);}40%{transform:scale(1);}60%{transform:scale(1.12);}}
+  .hint{margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.55);font-weight:300;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+
+  /* Secciones */
+  section{padding:90px 0;}
+  .section-title{
+    font-family:'Dancing Script',cursive;font-size:clamp(2rem,6vw,3.2rem);
+    text-align:center;margin-bottom:12px;color:#fff;
+    text-shadow:0 4px 24px rgba(255,111,165,.6);
+  }
+  .section-sub{text-align:center;color:var(--rose-soft);font-weight:300;margin-bottom:44px;font-size:.95rem;}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease, transform .9s ease;}
+  .reveal.show{opacity:1;transform:none;}
+
+  /* Tarjeta de cumplidos */
+  .card{
+    background:linear-gradient(150deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:26px;
+    backdrop-filter:blur(14px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .compliment-wrap{display:flex;flex-direction:column;align-items:center;gap:28px;}
+  .compliment{
+    width:100%;max-width:640px;min-height:190px;
+    padding:48px 34px;text-align:center;
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .compliment::before{
+    content:'❝';position:absolute;top:-20px;left:18px;font-size:120px;
+    color:rgba(255,111,165,.25);font-family:serif;line-height:1;
+  }
+  #complimentText{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(1.5rem,4.6vw,2.3rem);line-height:1.3;
+    transition:opacity .4s ease, transform .4s ease;
+  }
+  #complimentText.swap{opacity:0;transform:scale(.94);}
+
+  .btn{
+    border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:600;
+    font-size:1.05rem;color:#fff;padding:16px 42px;border-radius:50px;
+    background:linear-gradient(135deg,#ff6fa5,#ff9ec4,#ffd6a5);
+    background-size:200% 200%;
+    box-shadow:0 14px 40px rgba(255,111,165,.5);
+    transition:transform .2s ease, box-shadow .2s ease;
+    animation:shine 5s ease infinite;
+  }
+  .btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 20px 55px rgba(255,111,165,.7);}
+  .btn:active{transform:scale(.96);}
+
+  /* Razones */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;
+  }
+  .reason{
+    padding:30px 26px;border-radius:22px;
+    background:linear-gradient(150deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(10px);
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    position:relative;overflow:hidden;
+  }
+  .reason:hover{transform:translateY(-8px);border-color:rgba(255,111,165,.7);box-shadow:0 24px 50px rgba(255,111,165,.35);}
+  .reason .emoji{font-size:30px;display:block;margin-bottom:14px;}
+  .reason p{font-weight:300;line-height:1.6;color:#ffe9f2;}
+
+  /* Artistas favoritos */
+  .artist h3{font-family:'Dancing Script',cursive;font-size:1.9rem;margin-bottom:4px;color:#fff;text-shadow:0 4px 20px rgba(255,111,165,.5);}
+  .artist .artist-link{display:inline-block;font-size:.76rem;color:var(--rose-soft);text-decoration:none;margin-bottom:18px;letter-spacing:1px;}
+  .artist .artist-link:hover{color:#fff;text-decoration:underline;}
+  .songlist{display:flex;flex-direction:column;gap:16px;}
+  .song{padding:14px 16px;border-radius:16px;background:linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.15);}
+  .song .dedication{font-family:'Dancing Script',cursive;font-size:1.18rem;font-weight:600;color:#ffe9f2;margin-bottom:10px;line-height:1.3;}
+  .song iframe{display:block;width:100%;border:0;border-radius:12px;}
+
+  /* Álbum */
+  .album{display:flex;flex-direction:column;align-items:center;gap:44px;margin-top:10px;}
+  .album-cover{
+    position:relative;width:min(330px,82vw);aspect-ratio:1/1;border-radius:22px;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,214,165,.55), transparent 45%),
+      radial-gradient(circle at 75% 80%, rgba(255,111,165,.6), transparent 50%),
+      linear-gradient(135deg,#ff6fa5,#7a1f52 55%,#2a0f2e);
+    box-shadow:0 34px 90px rgba(255,111,165,.5), inset 0 0 70px rgba(0,0,0,.35);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:30px;overflow:hidden;isolation:isolate;
+  }
+  .album-cover::after{
+    content:'';position:absolute;inset:12px;border-radius:14px;
+    border:1px solid rgba(255,255,255,.35);pointer-events:none;
+  }
+  .cover-vinyl{
+    position:absolute;top:50%;right:-90px;transform:translateY(-50%);
+    width:230px;height:230px;border-radius:50%;
+    background:
+      radial-gradient(circle at center, #ffd6a5 0 12%, #1a0a18 13% 16%, #2a0f2e 16% 100%);
+    box-shadow:0 0 40px rgba(0,0,0,.5);
+    animation:spin 14s linear infinite;
+    z-index:-1;
+  }
+  @keyframes spin{to{transform:translateY(-50%) rotate(360deg);}}
+  .cover-inner{display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;z-index:1;}
+  .cover-eyebrow{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.85);}
+  .cover-name{font-family:'Dancing Script',cursive;font-size:clamp(2.2rem,9vw,3.3rem);line-height:1;color:#fff;text-shadow:0 6px 26px rgba(0,0,0,.45);}
+  .cover-artists{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.9);margin-top:4px;}
+  .cover-hearts{margin-top:6px;font-size:1.2rem;letter-spacing:4px;}
+
+  .album-sides{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;width:100%;}
+  .album-player{width:100%;max-width:680px;}
+  .album-player iframe{display:block;width:100%;border:0;border-radius:18px;box-shadow:0 26px 70px rgba(0,0,0,.45);}
+  .side-tag{
+    display:inline-block;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;
+    color:#3a1030;background:linear-gradient(135deg,#ffd6a5,#ff9ec4);
+    padding:3px 10px;border-radius:50px;margin-bottom:10px;vertical-align:middle;
+    font-family:'Poppins',sans-serif;font-weight:600;
+  }
+
+  /* Carta */
+  .letter-card{padding:56px 46px;max-width:760px;margin:0 auto;position:relative;}
+  .letter-card h2{font-family:'Dancing Script',cursive;font-size:2.4rem;margin-bottom:24px;text-align:center;}
+  .letter-card p{font-weight:300;line-height:1.9;color:#ffe9f2;margin-bottom:18px;font-size:1.02rem;}
+  .letter-card .sign{
+    text-align:right;font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--rose-soft);margin-top:28px;
+  }
+
+  footer{
+    text-align:center;padding:70px 20px 60px;color:rgba(255,255,255,.6);font-weight:300;font-size:.9rem;
+  }
+  footer .big{font-family:'Dancing Script',cursive;font-size:1.6rem;color:var(--rose-soft);display:block;margin-bottom:8px;}
+
+  /* Toast + partículas */
+  .toast{
+    position:fixed;left:50%;bottom:34px;transform:translate(-50%,140%);
+    background:linear-gradient(135deg,#ff6fa5,#ff9ec4);
+    color:#fff;padding:16px 34px;border-radius:50px;z-index:30;
+    box-shadow:0 16px 40px rgba(255,111,165,.6);font-weight:600;
+    transition:transform .5s cubic-bezier(.2,.9,.3,1.3);max-width:90vw;text-align:center;
+  }
+  .toast.show{transform:translate(-50%,0);}
+
+  .floating-heart{position:fixed;z-index:25;pointer-events:none;user-select:none;}
+
+  @media(max-width:560px){
+    .letter-card{padding:40px 26px;}
+    .compliment{padding:38px 22px;}
+    #musicBtn{width:48px;height:48px;font-size:19px;}
+  }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="glow"></div>
+  <canvas id="hearts"></canvas>
+  <button id="musicBtn" title="Pon música para ti">🎵</button>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">Para la mujer más hermosa del universo</p>
+      <h1 class="name">Luján Suárez</h1>
+      <p class="tagline"><span id="typed"></span><span class="caret">|</span></p>
+      <div class="heart-big" id="bigHeart" title="Tócame 💗">❤</div>
+      <p class="hint">(toca el corazón y el botón de amor 💕)</p>
+    </section>
+
+    <!-- CUMPLIDOS -->
+    <section id="compliments" class="reveal">
+      <h2 class="section-title">Siempre hermosa 💖</h2>
+      <p class="section-sub">Un piropo nuevo cada vez que quieras</p>
+      <div class="compliment-wrap">
+        <div class="compliment card">
+          <p id="complimentText"></p>
+        </div>
+        <button class="btn" id="loveBtn">Dame piropos 💌</button>
+      </div>
+    </section>
+
+    <!-- ÁLBUM -->
+    <section id="music" class="reveal">
+      <h2 class="section-title">Estas son solo unas musicas que me hacen recordar a ti 🩷</h2>
+      <p class="section-sub">Todas las canciones de tus cantantes favoritos, juntitas en un solo lugar 🎧</p>
+
+      <div class="album">
+        <div class="album-cover">
+          <div class="cover-vinyl"></div>
+          <div class="cover-inner">
+            <span class="cover-eyebrow">Edición especial · para ti</span>
+            <span class="cover-name">Luján<br>Suárez</span>
+            <span class="cover-artists">Luan Santana · Zé Neto &amp; Cristiano</span>
+            <span class="cover-hearts">❤️ 💖 ❤️</span>
+          </div>
+        </div>
+
+        <div class="album-player">
+          <iframe src="https://open.spotify.com/embed/playlist/3b5Ko960At0s3FPXRxwF9G?utm_source=generator&theme=0"
+            width="100%" height="500" frameborder="0" loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            title="Playlist de Luján en Spotify"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span class="big">Hecho con muchísimo amor</span>
+      Solo para ti, Luján Suárez 💖
+    </footer>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+/* =====================  Datos  ===================== */
+const taglines = [
+  "Hoy, mañana y siempre te vas a ver hermosa. ✨",
+  "Você é a mais linda do mundo inteiro. 💖",
+  "Todas las estrellas se quedan cortas a tu lado. 🌟",
+  "Você fica linda todos os dias, sempre. 💗",
+  "Eres mi lugar favorito en el mundo entero. 🌸",
+  "Até as estrelas ficam com inveja de você. 🌟",
+  "Existiendo ya haces el mundo más bonito. 🌷",
+  "Meu amor, você é linda demais. 😍"
+];
+
+const compliments = [
+  
+  "Você é daquelas pessoas que a gente não esquece fácil. ✨",
+  "Tenés una risa que le levanta el ánimo a cualquiera. 😊",
+  "Seu jeito deixa qualquer dia mais leve, sério. 🌷",
+  "Me encanta que seas tan vos, sin poses ni filtros. 🌸",
+  "Dá gosto de conversar com você, de verdade. 💬",
+  "Se te nota cuando algo te importa de verdad, y eso te hace más linda. 💕",
+  "Você transmite uma calma que faz bem de estar por perto. 🌙",
+  "Eres de esas personas que se recuerdan con una sonrisa. 🙂",
+  "Seu sorriso é daqueles que a gente leva pro resto do dia. 🌞",
+  "Cada vez que hablás se nota lo inteligente que sos. 💡",
+  "Tem algo em você que é bonito até de longe. 🌟",
+  "Tu presencia sola ya hace más lindo cualquier lugar. 🪴",
+  "Você é interessante de um jeito que dá vontade de conhecer mais. 🎧",
+  "Me gusta cómo contás las cosas, le ponés onda a todo. ✨",
+  "Você é intensa de um jeito bonito, sabe? 💫",
+  "No sé qué tenés, pero hacés fácil quererte. 🩷",
+  "Continue assim, do jeito que você é. 🌻",
+  "Tenés una luz tranquila que no necesita hacer ruido para notarse. 🌙",
+  "Você é o tipo de pessoa que faz o normal virar memória boa. 💖"
+];
+
+const reasons = [
+  {e:"😊", t:"Sonríes y se me olvida todo lo malo del día."},
+  {e:"💗", t:"Tienes el corazón más lindo de todo el planeta."},
+  {e:"👀", t:"Tu mirada ilumina más que mil estrellas juntas."},
+  {e:"🌞", t:"Seu sorriso ilumina meu dia inteiro."},
+  {e:"💪", t:"Eres fuerte, valiente y hermosa por dentro y por fuera."},
+  {e:"🌷", t:"Você me faz uma pessoa melhor só por existir."},
+  {e:"🎶", t:"Tu risa es mi canción favorita para siempre."},
+  {e:"🎵", t:"Sua risada é minha música favorita."},
+  {e:"🍀", t:"Eres la casualidad más bonita de mi vida."},
+  {e:"🕰️", t:"Com você o tempo voa e fica curto."},
+  {e:"👑", t:"Você é minha pessoa favorita, sem dúvida."},
+  {e:"💫", t:"És força, és luz, és tudo o que eu preciso."}
+];
+
+/* Canciones favoritas (reproductor de Spotify) */
+const playlist = [
+  {
+    artist:"Luan Santana", emoji:"🎸", url:"https://open.spotify.com/artist/3qvcCP2J0fWi0m0uQDUf6r",
+    songs:[
+      {id:"0SwVE0quYxSqMEsq8pGYxV", n:"Meteoro — caíste en mi vida como un meteoro y me alegraste los días."},
+      {id:"0hJHknE2yxSNwC2jQTBuyq", n:"Te Esperando — hasta cuando no estás, te sigo esperando."},
+      {id:"3WFh9Qo3PZX9ASt8zuosOh", n:"Você Não Sabe o Que É Amor — porque antes de ti yo tampoco lo sabía."},
+      {id:"52y6s6zXa709Pmzqe9keqv", n:"Tudo Que Você Quiser — todo lo que tú quieras, yo lo quiero contigo."},
+      {id:"66rhnZizvTv2ufYpyHoWoW", n:"Chuva de Arroz — porque contigo hasta lo imposible se antoja. 💖"}
+    ]
+  },
+  {
+    artist:"Zé Neto & Cristiano", emoji:"🤠", url:"https://open.spotify.com/artist/487N2T9nIPEHrlTZLL3SQs",
+    songs:[
+      {id:"1DUnEP4fjazeiVMxep0C0d", n:"Largado Às Traças — porque aunque no estés, aquí sigo pensando en ti."},
+      {id:"3tA0vALUwrzkTgHcm9j6oJ", n:"Notificação Preferida — porque tu mensaje es mi notificación favorita."},
+      {id:"7gx504HCEsTgxmyPNov5Lh", n:"Cadeira Cativa — porque contigo todo tiene su lugar bonito."},
+      {id:"2AXvVHrAUzBtQEzQ26CpOa", n:"Pátio do Posto — porque a tu lado cualquier lugar es mi favorito."},
+      {id:"0xRyAUAA6N6a4vDbZzRwgV", n:"Sonha Comigo — porque hasta en sueños me gustaría verte. 💗"}
+    ]
+  }
+];
+
+/* =====================  Máquina de escribir  ===================== */
+const typedEl = document.getElementById('typed');
+let tIdx = 0, cIdx = 0, deleting = false;
+function typeLoop(){
+  const full = taglines[tIdx];
+  if(!deleting){
+    typedEl.textContent = full.slice(0, ++cIdx);
+    if(cIdx === full.length){ deleting = true; setTimeout(typeLoop, 2200); return; }
+    setTimeout(typeLoop, 55);
+  } else {
+    typedEl.textContent = full.slice(0, --cIdx);
+    if(cIdx === 0){ deleting = false; tIdx = (tIdx + 1) % taglines.length; setTimeout(typeLoop, 400); return; }
+    setTimeout(typeLoop, 28);
+  }
+}
+typeLoop();
+
+/* =====================  Cumplidos  ===================== */
+const complimentEl = document.getElementById('complimentText');
+const loveBtn = document.getElementById('loveBtn');
+const toast = document.getElementById('toast');
+let lastCompliment = -1;
+
+function showCompliment(force){
+  let i;
+  do { i = Math.floor(Math.random() * compliments.length); }
+  while(i === lastCompliment && compliments.length > 1);
+  lastCompliment = i;
+  complimentEl.classList.add('swap');
+  setTimeout(()=>{
+    complimentEl.textContent = compliments[i];
+    complimentEl.classList.remove('swap');
+  }, 400);
+  return compliments[i];
+}
+showCompliment();
+
+let toastTimer;
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 2600);
+}
+
+loveBtn.addEventListener('click', ()=>{
+  const c = showCompliment();
+  showToast(c);
+  burst(window.innerWidth/2, window.innerHeight*0.7, 26);
+});
+
+/* =====================  Álbum ===================== */
+/* El reproductor de Spotify ya está embebido en la sección #music */
+
+/* =====================  Corazón grande + estallidos  ===================== */
+const bigHeart = document.getElementById('bigHeart');
+bigHeart.addEventListener('click', ()=>{
+  const r = bigHeart.getBoundingClientRect();
+  burst(r.left + r.width/2, r.top + r.height/2, 30);
+  showCompliment();
+});
+
+const heartEmojis = ['❤️','💖','💗','💕','🌸','✨','💞','🌷'];
+function burst(x, y, count){
+  for(let i = 0; i < count; i++){
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    h.style.fontSize = (14 + Math.random()*26) + 'px';
+    document.body.appendChild(h);
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 60 + Math.random() * 220;
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist - 130;
+    h.animate([
+      {transform:'translate(-50%,-50%) scale(0) rotate(0deg)', opacity:1},
+      {transform:`translate(calc(-50% + ${dx*0.7}px), calc(-50% + ${dy*0.7}px)) scale(1.2) rotate(${(Math.random()*60-30)}deg)`, opacity:1, offset:.55},
+      {transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.4) rotate(${(Math.random()*90-45)}deg)`, opacity:0}
+    ], {duration: 1100 + Math.random()*700, easing:'cubic-bezier(.2,.8,.3,1)'});
+    setTimeout(()=>h.remove(), 1900);
+  }
+}
+
+/* =====================  Fondo de corazones/canvas  ===================== */
+const canvas = document.getElementById('hearts');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+function makeParticle(){
+  return {
+    x: Math.random()*W,
+    y: H + Math.random()*H,
+    size: 12 + Math.random()*26,
+    speed: 0.4 + Math.random()*1.1,
+    sway: Math.random()*Math.PI*2,
+    swaySpeed: 0.01 + Math.random()*0.03,
+    emoji: heartEmojis[Math.floor(Math.random()*heartEmojis.length)],
+    alpha: 0.25 + Math.random()*0.5
+  };
+}
+const COUNT = window.innerWidth < 600 ? 18 : 34;
+for(let i=0;i<COUNT;i++) particles.push(makeParticle());
+
+function drawHearts(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach((p, i)=>{
+    p.y -= p.speed;
+    p.sway += p.swaySpeed;
+    const x = p.x + Math.sin(p.sway) * 26;
+    ctx.globalAlpha = p.alpha;
+    ctx.font = p.size + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(p.emoji, x, p.y);
+    if(p.y < -50) particles[i] = makeParticle();
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawHearts);
+}
+drawHearts();
+
+/* =====================  Reveal al hacer scroll  ===================== */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* =====================  Música romántica (Web Audio)  ===================== */
+const musicBtn = document.getElementById('musicBtn');
+let audioCtx = null, schedulerTimer = null, step = 0, playing = false;
+
+// Progresión suave: C  -  Am  -  F  -  G  (arpegios)
+const chords = [
+  [261.63, 329.63, 392.00, 523.25], // C
+  [220.00, 261.63, 329.63, 440.00], // Am
+  [174.61, 220.00, 261.63, 349.23], // F
+  [196.00, 246.94, 293.66, 392.00]  // G
+];
+
+function playNote(freq, time, dur){
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.linearRampToValueAtTime(0.12, time + 0.08);
+  gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(time);
+  osc.stop(time + dur + 0.05);
+}
+
+function scheduleStep(){
+  const now = audioCtx.currentTime;
+  const chord = chords[Math.floor(step / 8) % chords.length];
+  const freq = chord[step % chord.length];
+  // Melodía principal
+  playNote(freq, now, 1.4);
+  // Nota baja de apoyo cada 4 pasos
+  if(step % 4 === 0) playNote(chord[0] / 2, now, 1.8);
+  step++;
+}
+
+function startMusic(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  audioCtx.resume();
+  playing = true;
+  musicBtn.classList.add('playing');
+  musicBtn.textContent = '🎶';
+  step = 0;
+  scheduleStep();
+  schedulerTimer = setInterval(scheduleStep, 400);
+}
+function stopMusic(){
+  playing = false;
+  clearInterval(schedulerTimer);
+  musicBtn.classList.remove('playing');
+  musicBtn.textContent = '🎵';
+  if(audioCtx) audioCtx.suspend();
+}
+musicBtn.addEventListener('click', ()=>{ playing ? stopMusic() : startMusic(); });
+
+/* =====================  Saludo inicial  ===================== */
+window.addEventListener('load', ()=>{
+  setTimeout(()=>showToast('Hola, hermosa 🌸  Bienvenida a tu rinconcito 💖'), 900);
+});
+</script>
+</body>
+</html>
