@@ -48,21 +48,6 @@
   }
   #hearts{position:fixed;inset:0;z-index:-1;pointer-events:none;}
 
-  /* Botón de música */
-  #musicBtn{
-    position:fixed;top:18px;right:18px;z-index:20;
-    width:54px;height:54px;border-radius:50%;
-    border:1px solid rgba(255,255,255,.35);
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(10px);
-    color:#fff;font-size:22px;cursor:pointer;
-    transition:transform .25s ease, background .25s ease;
-    box-shadow:0 8px 24px rgba(255,111,165,.35);
-  }
-  #musicBtn:hover{transform:scale(1.1) rotate(-6deg);background:rgba(255,255,255,.22);}
-  #musicBtn.playing{animation:pulse 1.4s ease-in-out infinite;}
-  @keyframes pulse{50%{box-shadow:0 0 0 12px rgba(255,111,165,0);}}
-
   main{max-width:1000px;margin:0 auto;padding:0 22px;}
 
   /* HERO */
@@ -271,7 +256,6 @@
     .letter-card{padding:40px 26px;}
     .compliment{padding:38px 22px;}
     .note-card{font-size:1.3rem;padding:38px 24px 34px;}
-    #musicBtn{width:48px;height:48px;font-size:19px;}
   }
 </style>
 </head>
@@ -279,7 +263,6 @@
   <div class="bg"></div>
   <div class="glow"></div>
   <canvas id="hearts"></canvas>
-  <button id="musicBtn" title="Pon música para ti">🎵</button>
 
   <main>
     <!-- HERO -->
@@ -549,66 +532,9 @@ const io = new IntersectionObserver((entries)=>{
 }, {threshold:0.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* =====================  Música romántica (Web Audio)  ===================== */
-const musicBtn = document.getElementById('musicBtn');
-let audioCtx = null, schedulerTimer = null, step = 0, playing = false;
-
-// Progresión suave: C  -  Am  -  F  -  G  (arpegios)
-const chords = [
-  [261.63, 329.63, 392.00, 523.25], // C
-  [220.00, 261.63, 329.63, 440.00], // Am
-  [174.61, 220.00, 261.63, 349.23], // F
-  [196.00, 246.94, 293.66, 392.00]  // G
-];
-
-function playNote(freq, time, dur){
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(0.12, time + 0.08);
-  gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(time);
-  osc.stop(time + dur + 0.05);
-}
-
-function scheduleStep(){
-  const now = audioCtx.currentTime;
-  const chord = chords[Math.floor(step / 8) % chords.length];
-  const freq = chord[step % chord.length];
-  // Melodía principal
-  playNote(freq, now, 1.4);
-  // Nota baja de apoyo cada 4 pasos
-  if(step % 4 === 0) playNote(chord[0] / 2, now, 1.8);
-  step++;
-}
-
-function startMusic(){
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  audioCtx.resume();
-  playing = true;
-  musicBtn.classList.add('playing');
-  musicBtn.textContent = '🎶';
-  step = 0;
-  scheduleStep();
-  schedulerTimer = setInterval(scheduleStep, 400);
-}
-function stopMusic(){
-  playing = false;
-  clearInterval(schedulerTimer);
-  musicBtn.classList.remove('playing');
-  musicBtn.textContent = '🎵';
-  if(audioCtx) audioCtx.suspend();
-}
-musicBtn.addEventListener('click', ()=>{ playing ? stopMusic() : startMusic(); });
-
 /* =====================  Saludo inicial  ===================== */
 window.addEventListener('load', ()=>{
-  setTimeout(()=>showToast('Hola, hermosa 🌸  Bienvenida a tu rinconcito 💖'), 900);
+  setTimeout(()=>showToast('Hola, hermosa 🌸💖'), 900);
 });
 </script>
 </body>
