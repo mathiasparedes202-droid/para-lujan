@@ -370,7 +370,6 @@ const reasons = [
   {e:"💪", t:"Eres fuerte, valiente y hermosa por dentro y por fuera."},
   {e:"🌷", t:"Você me faz uma pessoa melhor só por existir."},
   {e:"🎶", t:"Tu risa es mi canción favorita para siempre."},
-  {e:"🎵", t:"Sua risada é minha música favorita."},
   {e:"🍀", t:"Eres la casualidad más bonita de mi vida."},
   {e:"🕰️", t:"Com você o tempo voa e fica curto."},
   {e:"👑", t:"Você é minha pessoa favorita, sem dúvida."},
@@ -531,11 +530,6 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
 }, {threshold:0.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* =====================  Saludo inicial  ===================== */
-window.addEventListener('load', ()=>{
-  setTimeout(()=>showToast('Hola, hermosa 🌸💖'), 900);
-});
 </script>
 </body>
 </html>
